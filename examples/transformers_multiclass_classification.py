@@ -25,8 +25,9 @@ TWENTY_NEWS_SUBCATEGORIES = ['rec.sport.baseball', 'sci.med', 'rec.autos']
 
 def main():
     # Active learning parameters
-    classifier_kwargs = dict({'device': 'cuda'})
-    clf_factory = TransformerBasedClassificationFactory(TRANSFORMER_MODEL, kwargs=classifier_kwargs)
+    clf_factory = TransformerBasedClassificationFactory(TRANSFORMER_MODEL,
+                                                        len(TWENTY_NEWS_SUBCATEGORIES),
+                                                        kwargs=dict({'device': 'cuda'}))
     query_strategy = RandomSampling()
 
     # Prepare some data
@@ -74,8 +75,7 @@ def initialize_active_learner(active_learner, y_train):
     x_indices_initial = random_initialization_balanced(y_train)
     y_initial = np.array([y_train[i] for i in x_indices_initial])
 
-    num_classes = len(TWENTY_NEWS_SUBCATEGORIES)
-    active_learner.initialize_data(x_indices_initial, y_initial, num_classes)
+    active_learner.initialize_data(x_indices_initial, y_initial)
 
     return x_indices_initial
 

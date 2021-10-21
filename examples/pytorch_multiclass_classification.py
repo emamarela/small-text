@@ -40,7 +40,7 @@ def main():
     classifier_kwargs = dict({'embedding_matrix': _load_gensim_embedding(train.vocab),
                               'device': device})
 
-    clf_factory = KimCNNFactory('kimcnn', classifier_kwargs)
+    clf_factory = KimCNNFactory('kimcnn', num_classes, classifier_kwargs)
     query_strategy = ExpectedGradientLength(num_classes, device=device)
 
     # Active learner
@@ -49,7 +49,7 @@ def main():
     labeled_indices = random_initialization_stratified(train.y, 20)
     y_initial = train[labeled_indices].y
 
-    active_learner.initialize_data(labeled_indices, y_initial, num_classes)
+    active_learner.initialize_data(labeled_indices, y_initial)
 
     try:
         # Perform 20 iterations of active learning...
