@@ -3,7 +3,7 @@ import numpy as np
 
 from sklearn.metrics import cohen_kappa_score
 
-from small_text.stopping_criteria.base import StoppingCriterion
+from small_text.stopping_criteria.base import StoppingCriterion, check_window_based_predictions
 
 
 class KappaAverage(StoppingCriterion):
@@ -17,16 +17,17 @@ class KappaAverage(StoppingCriterion):
        In Proceedings of the Thirteenth Conference on Computational Natural Language Learning (CoNLL '09).
        Association for Computational Linguistics, USA, 39–47.
     """
-    def __init__(self, kappa=0.99, window_size=3, num_classes=2):
+    def __init__(self, num_classes, kappa=0.99, window_size=3):
 
+        self.num_classes = num_classes
         self.kappa = kappa
         self.window_size = window_size
-        self.num_classes = num_classes
 
         self.last_predictions = None
         self.kappa_history = []
 
-    def stop(self, _, predictions):
+    def stop(self, active_learner=None, predictions=None, proba=None):
+        check_window_based_predictions(predictions, self.last_predictions)
 
         if self.last_predictions is None:
             self.last_predictions = predictions
