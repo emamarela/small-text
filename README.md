@@ -50,9 +50,14 @@ More information regarding the installation can be found in the
 ## Quick Start
 
 For a quick start, see the provided examples for [binary classification](examples/code/binary_classification.py), 
+<<<<<<< HEAD
 [pytorch multi-class classification](examples/code/pytorch_multiclass_classification.py), and 
 [transformer-based multi-class classification](examples/code/transformers_multiclass_classification.py), 
 or check out the notebooks.
+=======
+[pytorch multi-class classification](examples/code/pytorch_multiclass_classification.py), or 
+[transformer-based multi-class classification](examples/code/transformers_multiclass_classification.py).
+>>>>>>> 5bc79c8... Update README.md and docs with new example paths
 
 ### Notebooks
 
